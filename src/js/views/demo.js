@@ -8,6 +8,15 @@ import "../../styles/demo.css";
 export const Demo = () => {
 	const { store, actions } = useContext(Context);
 
+	function deleteItem(indexToDelete){
+		console.log('deleteItem',indexToDelete)
+		console.log(store.contacts)
+		// store.contacts = []
+		// console.log(store.contacts)
+		console.log(store.contacts.filter( (elemento,index)=> index != indexToDelete ))
+
+	}
+
 	return (
 		<div className="container">
 			<ul className="list-group">
@@ -18,7 +27,7 @@ export const Demo = () => {
 							className="list-group-item d-flex justify-content-between"
 							style={{ background: item.background }}>
 							<Link to={"/single/" + index}>
-								<span>Link to: {item.title}</span>
+								<span>Link to123: {item.title}</span>
 							</Link>
 							{// Conditional render example
 							// Check to see if the background is orange, if so, display the message
@@ -33,6 +42,25 @@ export const Demo = () => {
 						</li>
 					);
 				})}
+
+
+				{store.contacts.map((item, index) => 
+
+						<li
+							key={index}
+							className="list-group-item d-flex justify-content-between"
+							>
+							 {item.name}
+							 <br/>
+							 {item.address}
+							 <br/>
+							 {item.id}
+							 <br/>
+							 {index}
+							 <button onClick={()=>actions.deleteContact(item.id)}>Eliminar</button>
+						</li>
+
+				)}
 			</ul>
 			<br />
 			<Link to="/">
